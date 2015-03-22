@@ -1,5 +1,11 @@
-Raspberry-Pi-AUI v6.2
-=====================
+```
+      ____  ____  _       ___   __  ______
+     / __ \/ __ \(_)     /   | / / / /  _/   The Raspberry PI
+    / /_/ / /_/ / ______/ /| |/ / / // /    Arch Linux ARM
+   / _, _/ ____/ /_____/ ___ / /_/ _/ /    [ Ultimate ]
+  /_/ |_/_/   /_/     /_/  |_\____/___/   Installer
+```
+
 > Basic introduction for Configuring Raspberry Pi
 
 Steps to install Raspberry-Pi-AUI:
