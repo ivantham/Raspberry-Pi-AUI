@@ -8,6 +8,10 @@
 
 > A simple way to configure Raspberry Pi with Arch Linux ARM for beginners
 
+Requirements
+------------
+ - Git -> `sudo pacman -S git`
+
 Installation
 ------------
 #### via `wget`:
