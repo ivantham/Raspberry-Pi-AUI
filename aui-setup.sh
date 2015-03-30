@@ -1,5 +1,6 @@
 #!/bin/bash
 # Utility Pi v1.5
+# TODO: Add options such as --prefix=/usr/bin
 # Description:  Install or uninstall RPi-AUI
 # Usage:        ./aui-setup.sh --help
 #---------------------------------------------------------------------------
@@ -22,7 +23,16 @@
 #----------------------------------------------------------------------------
 # Default Variables
 aui_path=/opt
+bin_path=/usr/bin
 defsleep=1
+
+aui_bin=(
+  "$aui_path/RPi-AUI/AUI/archi.sh $bin_path/aui"
+  "$aui_path/RPi-AUI/AUI/disp.sh $bin_path/aui-disp"
+  "$aui_path/RPi-AUI/AUI/oc.sh $bin_path/aui-oc"
+  "$aui_path/RPi-AUI/AUI/userm.sh $bin_path/aui-userm"
+  "$aui_path/RPi-AUI/AUI/util.sh $bin_path/aui-util"
+)
 
 
 #---------------------------------------------------------------------------
@@ -38,7 +48,10 @@ function thank() {
 }
 
 function do_uninstall() {
-  echo "Uninstall is still in progress."
+  for i in $(seq ${#aui_bin[@]}); do
+    rm -vf $(echo ${aui_bin[$i-1]} | cut -f2 -d' ') # Remove installed files
+  done
+  echo "\e[32mRPi-AUI scripts successfully removed.\e[m"
   exit 0
 }
 
@@ -58,7 +71,7 @@ Run without any argument will default to installtion."
 [[ $# -gt 0 && -n $1 ]] && do_help      # Help for those enter nonsense
 
 # Root privilege
-[[ $UID -ne 0 ]] && { echo -e "\e[31mPlease run as root!\e[m"; exit 1; }
+[[ $UID -ne 0 ]] && { echo -e "\e[31mPlease run as root!\e[m" >&2; exit 1; }
 
 # Print the title
 echo ""
@@ -66,7 +79,7 @@ echo "##############################################################"
 echo "##   Welcome to Setup Pi v1.0                               ##"
 echo "##   -- By kingspp                                          ##"
 echo "##############################################################"
-echo "  "
+echo ""
 sleep 1
 
 # Confirmation for installation
@@ -77,13 +90,13 @@ read -p "Do you want to install Arch Linux Ultimate Install? " -e -n 1 ch
 hash git 2>/dev/null || { echo "Installing Git..."; pacman -S --noconfirm git; }
 
 # Clone the repository and setup
-cd /opt && git clone https://github.com/kingspp/RPi-AUI && cd RPi-AUI/AUI
+cd $aui_path && git clone https://github.com/kingspp/RPi-AUI && cd RPi-AUI/AUI
 chmod +x archi.sh
-ln -s /opt/RPi-AUI/AUI/archi.sh /usr/bin/aui
-ln -s /opt/RPi-AUI/AUI/disp.sh /usr/bin/aui-disp
-ln -s /opt/RPi-AUI/AUI/oc.sh /usr/bin/aui-oc
-ln -s /opt/RPi-AUI/AUI/userm.sh /usr/bin/aui-userm
-ln -s /opt/RPi-AUI/AUI/util.sh /usr/bin/aui-util
-echo "Installation is complete."
-sleep 2
-aui
+
+# Copy executable files instead of creating links
+for i in $(seq ${#aui_bin[@]}); do
+  cp -vs ${aui_bin[$i-1]}
+done
+
+# Begin initialisation ...
+echo "Installation completed"; sleep 2 && aui # Start aui after sleep

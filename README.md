@@ -6,20 +6,25 @@
   /_/ |_/_/   /_/     /_/  |_\____/___/   Installer
 ```
 
-> Basic introduction for Configuring Raspberry Pi
+> A simple way to configure Raspberry Pi with Arch Linux ARM for beginners
 
-Steps to install Raspberry-Pi-AUI:
-----------------------------------
-#### Installation via `wget`:
+Installation
+------------
+#### via `wget`:
 ```
 wget -O - https://raw.githubusercontent.com/kingspp/RPi-AUI/master/aui-setup.sh | sudo bash
 ```
 (if you get error regarding **wget**, see the [note](#note) in the bottom)
 
-#### Installation via `curl`:
+#### via `curl`:
 ```
 curl -L https://raw.githubusercontent.com/kingspp/RPi-AUI/master/aui-setup.sh | sudo bash
 ```
+
+Usage
+-----
+
+    sudo aui
 
 Commands  | Description
 ----------|--------------------------
@@ -31,7 +36,7 @@ aui-util  | Utility Manager UI
 
 How to contribute?
 ------------------
-Take a look at [CONTRIBUTING.md](/CONTRIBUTING.md)
+Take a look at [CONTRIBUTING.md](/CONTRIBUTING.md), [issue tracker](https://github.com/kingspp/RPi-AUI/issues) or [pull requests](https://github.com/kingspp/RPi-AUI/pulls)
 
 Note
 ----
@@ -42,4 +47,5 @@ sudo pacman -Syu wget
 
 Milestone
 ---------
+ - [ ] Add support for other distribution (if possible)
  - [ ] Improve UI
